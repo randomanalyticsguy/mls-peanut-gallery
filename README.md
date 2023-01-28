@@ -1,0 +1,1 @@
+https://vite-plugin-web-extension.aklinker1.io
