@@ -10,20 +10,24 @@ const matched_active_listing_url = ref('');
 const matched_active_listing = ref();
 const current_image = ref('');
 
+// this is _so_ sloppy
 (async () => {
   is_logged_in.value = await Reddit.isAuthed();
   has_active_listing.value = await Listing.has_active_listing();
+  console.log(has_active_listing)
   try {
     let active_listing = await Listing.active_listing;
-    let matched = await Reddit.hasListing(active_listing);
-    if(matched){
-      console.log(matched) // build frontend interface off this bad boy here?
-      matched_active_listing.value = matched;
-      matched_active_listing_url.value = "https://reddit.com" + matched.data.permalink
-    } else {
-      current_image.value = active_listing.mainImage // why not ig
+    if(active_listing !== undefined){
+      let matched = await Reddit.hasListing(active_listing);
+
+      if(matched){
+        console.log(matched) // build frontend interface off this bad boy here?
+        matched_active_listing.value = matched;
+        matched_active_listing_url.value = "https://reddit.com" + matched.data.permalink
+      } else {
+        current_image.value = active_listing.mainImage // why not ig
+      }
     }
-    
   } catch (e){
     console.error(e)
   }

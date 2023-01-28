@@ -99,10 +99,12 @@ export default class Reddit {
           j("No image");
         }
         const { webSocketUrl, assetID } = await this.uploadMediaFile(img.url);
-        r({
-          "media_id": assetID,
-          "outbound_url": listing.url
-        })
+        if(listing !== undefined){
+          r({
+            "media_id": assetID,
+            "outbound_url": listing.url
+          })
+        }
       })
     })
 

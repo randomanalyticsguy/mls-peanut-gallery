@@ -13,17 +13,25 @@ export default class Zillow extends BaseListing implements ListingInterface {
       if(!document){
         j();
       }
-      let data:any = document.getElementById('hdpApolloPreloadedData')
-      console.log(data)
-      if(!data){
+      let hdp:any = document.getElementById('hdpApolloPreloadedData');
+      let next:any = document.getElementById('__NEXT_DATA__'); // did they literally just change something?
+
+      
+      if(!hdp && !next){
         setTimeout(() => {
           Zillow.hasPageLoaded().then(d => {
             console.log(d)
             r(d)
           })
         }, 50)
-      } else {
-        r(data)
+      }
+
+      if(hdp){
+        r(hdp)
+      }
+
+      if(next){ // there is some really weird next progression thing that's possible and I haven't been able to implement it yet
+        console.log(next)
       }
     })
   }

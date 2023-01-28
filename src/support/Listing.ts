@@ -111,11 +111,11 @@ The original listing can be found [here](${this.url}).
     return await Listing.active_listing !== undefined;
   }
 
-  static get active_listing():Promise<Listing>{
+  static get active_listing():Promise<Listing|undefined>{
     return new Promise(async (r, j) => {
       let stored = await storage.local.get(Listing.storage_keys.active)
       if(!stored.hasOwnProperty('active_listing')){
-        j(undefined)
+        r(undefined)
       } else {
         r(new Listing(stored.active_listing))
       }
