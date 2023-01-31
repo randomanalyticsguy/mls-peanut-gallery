@@ -13,7 +13,7 @@ export default class Reddit {
     expires: "reddit_oauth_expires"
   }
 
-  async auth(){
+  static async auth(){
     const codeResp = await identity.launchWebAuthFlow({
       url: `https://www.reddit.com/api/v1/authorize?client_id=${Reddit.app_client_id}&response_type=code&state=reddit&redirect_uri=${Reddit.app_redirect_uri}&duration=permanent&scope=identity,read,submit`,
       interactive: true
@@ -36,17 +36,17 @@ export default class Reddit {
 
     console.log("tokenResp", tokenRespJson)
 
-    this.storeTokenResp(tokenRespJson);
+    Reddit.storeTokenResp(tokenRespJson);
 
     return true;
   }
 
-  async logout(){
+  static async logout(){
     // todo - logout https://github.com/reddit-archive/reddit/wiki/OAuth2#manually-revoking-a-token
     await storage.local.clear();
   }
 
-  async isAuthed(){
+  static async isAuthed(){
     return await Reddit.refresh_token !== undefined;
   }
 
@@ -61,7 +61,7 @@ export default class Reddit {
     })
     const tokenRespJson = await tokenResp.json()
 
-    this.storeTokenResp(tokenRespJson);
+    Reddit.storeTokenResp(tokenRespJson);
 
     return tokenRespJson.access_token;
   }
@@ -81,12 +81,8 @@ export default class Reddit {
     }
   }
 
-  async post(){
+  async post(listing:Listing){
     // TODO: needs support for single-image listings
-    let listing = await Listing.active_listing;
-    if(listing === undefined){
-      return;
-    }
 
     console.log(listing)
     console.log(listing.requiredOPComment);
@@ -184,7 +180,7 @@ export default class Reddit {
     })
   }
 
-  storeTokenResp(tokenResp:{
+  static storeTokenResp(tokenResp:{
     "access_token": string,
     "token_type": string,
     "expires_in": number,
