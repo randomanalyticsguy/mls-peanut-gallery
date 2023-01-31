@@ -1,3 +1,13 @@
+# Installation
+
+The latest .zip file called mls-peanut-gallery-latest.zip contains a built and zipped version of the extension. You'll want to download it.
+
+Next, look up how to install chrome extensions manually. Here is a good guide:
+
+https://bashvlas.com/blog/install-chrome-extension-in-developer-mode/
+
+# For devs
+
 https://vite-plugin-web-extension.aklinker1.io
 
 basically `npm run dev`
