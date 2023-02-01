@@ -66,8 +66,8 @@ export default class Reddit {
     return tokenRespJson.access_token;
   }
 
-  async hasListing(listing:Listing) {
-    const redditResp = await fetch(`https://oauth.reddit.com/r/MLSPeanutGallery/search?q=${listing.mls}&restrict_sr=true&t=all`, {
+  async hasListing(listing:Listing):Promise<boolean|string> {
+    const redditResp = await fetch(`https://oauth.reddit.com/r/MLSPeanutGallery/search?q=MLS%23${listing.mls}&restrict_sr=true&t=all&type=link`, {
       headers: {
         'Authorization': `Bearer ${await this.access_token}`
       }
@@ -75,7 +75,7 @@ export default class Reddit {
     let js = await redditResp.json()
     console.log("was found?", js)
     if(js.data.children.length == 1){
-      return js.data.children[0];
+      return js.data.children[0].data.id;
     } else {
       return false;
     }
@@ -149,6 +149,8 @@ export default class Reddit {
 
       let crs = await commentResp.json();
       console.log(crs)
+
+      return postID;
     }
   }
 
