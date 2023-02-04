@@ -1,6 +1,6 @@
 # Installation
 
-The latest .zip file called mls-peanut-gallery-latest.zip contains a built and zipped version of the extension. You'll want to download it.
+The latest .zip file called dist.zip contains a built and zipped version of the extension. You'll want to download it.
 
 Next, look up how to install chrome extensions manually. Here is a good guide:
 
