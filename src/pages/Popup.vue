@@ -16,10 +16,32 @@ body {
   height: 400px;
   padding: 0;
   margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: #3D3D3D;
+  background: #fff;
+  border: none;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 0 auto 0 auto;
+}
+
+button:focus {
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
 }
 
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: #1E1E20;
 }
 
 body > div {
@@ -40,13 +62,21 @@ h1 {
   font-size: 18px;
   color: white;
   font-weight: bold;
-  margin: 0;
+  margin: 1rem;
+}
+
+a:link {
+  color: limegreen;
+}
+
+a:visited {
+  color: hotpink;
 }
 
 p {
   color: white;
   opacity: 0.7;
-  margin: 0;
+  margin: 1rem;
 }
 
 code {

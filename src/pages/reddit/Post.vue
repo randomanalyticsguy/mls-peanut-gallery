@@ -14,7 +14,7 @@ const loading = ref(false);
 onMounted(async () => {
   active_listing.value = await Listing.active_listing;
   if(active_listing){
-    active_post.value = await reddit.hasListing(active_listing.value);
+    active_post.value = await reddit.hasListing(active_listing.value)
   }
 });
 
@@ -23,7 +23,7 @@ const handleClick = async () => {
     loading.value = true;
     let postId = await reddit.post(active_listing.value);
     if(postId){
-      active_post.value = true;
+      active_post.value = postId.split('_')[1];
     }
     
     loading.value = false;

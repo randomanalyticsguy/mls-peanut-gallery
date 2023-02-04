@@ -18,6 +18,9 @@ onMounted(async () => {
     <Post />
   </div>
   <div v-else>
-    In order to use this extension, go to a listing on Zillow.com.
+    <p>
+      This extension only works on certain pages. <br /><br />
+      In order to use this extension, please visit a listing on Zillow.com.  
+    </p>
   </div>
 </template>

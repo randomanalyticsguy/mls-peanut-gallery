@@ -1,9 +1,11 @@
 import { Buffer } from 'buffer';
 import { storage, identity } from 'webextension-polyfill';
 import Listing from './Listing';
+import FlairMap from './reddit/FlairMap';
 
 export default class Reddit {
 
+  static flair_map = new FlairMap()
   static app_client_id = "diz0vEIY6acv3Jh8BrAAXg"
   static user_agent = `bot:[${Reddit.app_client_id}]:v0.0.1 (by /r/MLSPeanutGallery)`
   static app_redirect_uri = "https://mgbjgjpjidnodhjochgaceidabklppde.chromiumapp.org/reddit_oauth"
@@ -81,6 +83,36 @@ export default class Reddit {
     }
   }
 
+  async loadComments(id:string){
+    const redditResp = await fetch(`https://oauth.reddit.com/r/MLSPeanutGallery/comments/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${await this.access_token}`
+      }
+    })
+    let js = await redditResp.json();
+
+    console.log('comments?', js)
+
+
+    let post:any = {}
+    let comments:any[] = [];
+    js.forEach((e:any) => {
+      e.data.children.forEach((c:any) => {
+        if(c.kind == 't3'){
+          post = c.data;
+        }
+        if(c.kind == 't1'){
+          comments.push(c.data)
+        }
+      })
+    })
+
+    return {
+      post: post,
+      comments: comments
+    };    
+  }
+
   async post(listing:Listing){
     // TODO: needs support for single-image listings
 
@@ -115,7 +147,8 @@ export default class Reddit {
       "sr": "mlspeanutgallery",
       "title": listing.title,
       "validate_on_submit": false,
-      "resubmit": false
+      "resubmit": false,
+      "flair_id": Reddit.flair_map.determineFlair(listing.price)
     }
 
     const postResp = await fetch("https://oauth.reddit.com/api/submit_gallery_post.json", {
