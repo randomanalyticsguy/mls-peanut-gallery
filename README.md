@@ -1,4 +1,9 @@
 # Installation
+## Front-loading
+Chrome Webstore: https://chrome.google.com/webstore/detail/mls-peanut-gallery/mgbjgjpjidnodhjochgaceidabklppde
+
+## Side-loading
+If you want the absolute latest version of this extension, you can side load it following these instructions.
 
 The latest .zip file called dist.zip contains a built and zipped version of the extension. You'll want to download it.
 
